@@ -9,14 +9,20 @@ import java.util.List;
 public interface OgrenciRepository extends JpaRepository<Ogrenci, Long> {
 
 
-    //Kitap alan öğrencilerin öğrenci bilgilerini listeleyin..
-    String QUESTION_2 = "";
+    //Kitap alan öğrencilerin öğrenci bilgilerini listeleyin.
+    String QUESTION_2 = "SELECT * FROM ogrenci AS o" +
+            "INNER JOIN islem AS i" +
+            "ON o.ogrno=i.ogrno ";
     @Query(value = QUESTION_2, nativeQuery = true)
     List<Ogrenci> findStudentsWithBook();
 
 
     //Kitap almayan öğrencileri listeleyin.
-    String QUESTION_3 = "";
+    String QUESTION_3 = "SELECT *" +
+            "FROM ogrenci AS o" +
+            "LEFT JOIN islem AS i" +
+            "ON o.ogrno = i.ogrno" +
+            "WHERE i.kitapno IS NULL;";
     @Query(value = QUESTION_3, nativeQuery = true)
     List<Ogrenci> findStudentsWithNoBook();
 
